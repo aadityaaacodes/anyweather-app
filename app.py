@@ -38,6 +38,5 @@ def default():
         performGoogleSearch(query=f"{query}")
         return (redirect(url_for('default')))
 
-
 if __name__ == '__main__':
     app.run(debug=True, port=8500)
