@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title%}
+{{city}}
+{% endblock %}
+
+{% block body %}
+
+<div class="main">
+    <p hidden>
+        {{info}}
+    </p>
+    <div class="picture">
+        <div class="vital">
+
+            <div class="temp">
+                <h1>{{info['temperature']}} *C</h1>
+            </div>
+            
+            <div class="time">
+                <h1>Time: <br> 16:43</h1>
+            </div>
+
+            <div class="cond">
+                <h1>{{info['condition']}}</h1>
+            </div>
+
+        </div>
+
+        <img class="image" src="{{Img_URL}}" alt="Image for condition">
+        
+        <div class="warning">
+            <marquee>
+                Warning: Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam est architecto aliquam. Quod tenetur accusantium numquam porro beatae possimus error.
+            </marquee>
+        </div>
+    </div>
+
+    <div class="first">
+
+        <div class="dawn">
+            <h1> Dawn <br> {{info['dawn']}} </h1>
+        </div>
+
+        <div class="city">
+            <h1 >{{city}}</h1>
+        </div>
+
+        <div class="dusk">
+            <h1 > Dusk <br> {{info['dusk']}} </h1>
+        </div>
+
+    </div>
+
+    <div class="second">
+
+        <div class="aqi">
+            <h2>
+                AQI: {{info['aqi']}} <br> Safe
+            </h2>
+        </div>
+
+        <div class="precise">
+            <h2>{{info['locale']}}</h2>
+        </div>
+
+        <div class="uv">
+            <h2>
+                UV: {{info['uv']}} <br> Stay Indoors
+            </h2>
+        </div>
+
+    </div>
+
+    <div class="third">
+        <div class="highT">
+            <h2>
+                Precipitation: <br> {{info['precipitation']}}
+            </h2>
+        </div>
+
+        <div class="lowT">
+            <h2>
+                Visibility: <br> {{info['visibility']}}
+            </h2>
+        </div>
+
+        <div class="humidity">
+            <h2>
+                Humidity:<br> {{info['humidity']}}
+            </h2>
+        </div>
+
+        <div class="wind">
+            <h2>Wind Speed:<br> {{info['windspeed']}}</h2>
+        </div>
+
+        <div class="pressure">
+            <h2>
+                Pressure: <br> {{info['pressure']}}
+            </h2>
+        </div>
+    </div>
+
+    <div class="search">
+        <div class="srch">
+            <form method="POST">
+                <input name = "query" type="search">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
