@@ -1,0 +1,22 @@
+{
+    "searchData": {
+        "city": "Kolkata",
+        "state": "",
+        "country": ""
+    },
+    "weatherData": {
+        "locale": "Calcutta Medical College, West Bengal",
+        "dawn": "05:09",
+        "dusk": "18:16",
+        "temperature": "29",
+        "condition": "Haze",
+        "windspeed": "11 km/h",
+        "humidity": "87%",
+        "precipitation": "23%",
+        "aqi": "31",
+        "pressure": "1001.4 mb",
+        "visibility": "3.54 km",
+        "uv": "0 of 11",
+        "city": "Mumbai"
+    }
+}
