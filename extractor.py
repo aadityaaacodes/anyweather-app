@@ -3,6 +3,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 import json, os
 
 json_path = 'dataStorage.json'
@@ -35,9 +38,7 @@ def performGoogleSearch(query):
     chrome_options.add_argument('--disable-gpu')
 
     # Starting selenium bot
-    service = Service(executable_path='venv/bin/chromedriver')
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-
+    service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     # Performing google search
@@ -54,27 +55,26 @@ def performGoogleSearch(query):
     weatherData["condition"] = (driver.find_element(By.ID, "wob_dc")).text
 
     # Clicking button to weather.com
-    anchor = driver.find_element(By.LINK_TEXT, "weather.com")
+    wait = WebDriverWait(driver, 10)
+    anchor = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "weather.com")))
     anchor.click()
 
     # weather.com opens
     driver.get_screenshot_as_file("weather.png")
-    weatherData['aqi'] = (driver.find_element(By.CLASS_NAME, "DonutChart--innerValue--3_iFF")).text
-    dawn_dusk = driver.find_elements(By.CLASS_NAME, "TwcSunChart--dateValue--2WK2q")
+    dawn_dusk = driver.find_elements(By.CLASS_NAME, "TwcSunChart--datesContainer--dM3Nk")
     weatherData['dawn'] = dawn_dusk[0].text
     weatherData['dusk'] = dawn_dusk[1].text
-    weatherData['locale'] = (driver.find_element(By.CLASS_NAME, "CurrentConditions--location--1YWj_")).text
 
     cssSelectors = {
-    "uvIndex" : "span[data-testid = 'UVIndexValue']",
     "pressure" : "span[data-testid = 'PressureValue']", 
     "visibility" : "span[data-testid = 'VisibilityValue']"
     }
 
     weatherData['pressure'] = (driver.find_elements(By.CSS_SELECTOR, "span[data-testid = 'PressureValue']"))[0].text
-    weatherData['uv'] = (driver.find_elements(By.CSS_SELECTOR, "span[data-testid = 'UVIndexValue']"))[0].text
     weatherData['visibility'] = (driver.find_elements(By.CSS_SELECTOR, "span[data-testid = 'VisibilityValue']"))[0].text
 
+    print(weatherData["pressure"])
+    print(weatherData["visibility"])
 
     # Shutting bot
     driver.quit
@@ -88,4 +88,4 @@ def performGoogleSearch(query):
 
 
 # # TEST RUN:
-# performGoogleSearch(query="Cincinnati")
+performGoogleSearch(query="Cincinnati")
